@@ -19,27 +19,18 @@ namespace AspMvcMovieApp.Identity
 
 			switch (subject)
 			{
-				case "user1":
-					// we could do the role mappings here, but for this lab we won't
-					// just to illustrate the different approach of using claims transformation
-					//claims.Add(new Claim("role", "Reviewer"));
-					claims.Add(new Claim("name", "User One"));
+				case "manik":
+					claims.Add(new Claim("name", "Manik Sheeri"));
 					break;
-				case "user2":
-					//claims.Add(new Claim("role", "Reviewer"));
-					claims.Add(new Claim("name", "User Two"));
+				case "jake":
+					claims.Add(new Claim("name", "Jake O'Hara"));
 					break;
-				case "user3":
-					//claims.Add(new Claim("role", "Reviewer"));
-					claims.Add(new Claim("name", "User Three"));
+				case "sean":
+					claims.Add(new Claim("name", "Sean Gribbin"));
 					break;
-				case "user4":
-					//claims.Add(new Claim("role", "Customer"));
-					claims.Add(new Claim("name", "User Four"));
-					break;
-				case "user5":
-					//claims.Add(new Claim("role", "Admin"));
-					claims.Add(new Claim("name", "User Five"));
+				case "ngp":
+					claims.Add(new Claim("role", "Admin"));
+					claims.Add(new Claim("name", "Administrator"));
 					break;
 				default:
 					claims.Add(new Claim("name", subject));
