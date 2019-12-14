@@ -34,8 +34,20 @@ namespace AspMvcMovieApp
 					options.AccessDeniedPath = "/Account/AccessDenied";
 				});
 
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy("AdminPolicy", builder =>
+				{
+					builder.RequireAuthenticatedUser();
+					builder.RequireAssertion(ctx => ctx.User.HasClaim("role", "Admin"));
+				});
+			});
+
 			// add Identity service
 			services.AddTransient<IdentityService>();
+
+			// add local policy server
+			services.AddPolicyServerClient(Configuration.GetSection("Policy"));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +70,9 @@ namespace AspMvcMovieApp
 
 			// must configure authentication before configuring any endpoint routes
 			app.UseAuthentication();
+
+			// must configure policy after authentication and before authorization
+			app.UsePolicyServerClaims();
 
 			// must configure authorization after authentication but before configuring any endpoint routes
 			app.UseAuthorization();

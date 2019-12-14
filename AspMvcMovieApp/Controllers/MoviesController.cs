@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AspMvcMovieApp.Data;
 using AspMvcMovieApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AspMvcMovieApp.Controllers
 {
@@ -55,11 +56,12 @@ namespace AspMvcMovieApp.Controllers
             return View(movie);
         }
 
-        /// <summary>
-        /// GET: Movies/Create.
-        /// </summary>
-        /// <returns>An IActionResult.</returns>
-        public IActionResult Create()
+		/// <summary>
+		/// GET: Movies/Create.
+		/// </summary>
+		/// <returns>An IActionResult.</returns>
+		[Authorize("AdminPolicy")]
+		public IActionResult Create()
         {
             return View();
         }
@@ -72,7 +74,8 @@ namespace AspMvcMovieApp.Controllers
         /// <returns>An asynchronous result that yields an IActionResult.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price")] Movie movie)
+        [Authorize("AdminPolicy")]
+		public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -83,12 +86,13 @@ namespace AspMvcMovieApp.Controllers
             return View(movie);
         }
 
-        /// <summary>
-        /// GET: Movies/Edit/5.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>An asynchronous result that yields an IActionResult.</returns>
-        public async Task<IActionResult> Edit(int? id)
+		/// <summary>
+		/// GET: Movies/Edit/5.
+		/// </summary>
+		/// <param name="id">The identifier.</param>
+		/// <returns>An asynchronous result that yields an IActionResult.</returns>
+		[Authorize("AdminPolicy")]
+		public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -113,7 +117,8 @@ namespace AspMvcMovieApp.Controllers
         /// <returns>An asynchronous result that yields an IActionResult.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] Movie movie)
+        [Authorize("AdminPolicy")]
+		public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] Movie movie)
         {
             if (id != movie.Id)
             {
@@ -143,12 +148,13 @@ namespace AspMvcMovieApp.Controllers
             return View(movie);
         }
 
-        /// <summary>
-        /// GET: Movies/Delete/5.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>An asynchronous result that yields an IActionResult.</returns>
-        public async Task<IActionResult> Delete(int? id)
+		/// <summary>
+		/// GET: Movies/Delete/5.
+		/// </summary>
+		/// <param name="id">The identifier.</param>
+		/// <returns>An asynchronous result that yields an IActionResult.</returns>
+		[Authorize("AdminPolicy")]
+		public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -172,7 +178,8 @@ namespace AspMvcMovieApp.Controllers
         /// <returns>An asynchronous result that yields an IActionResult.</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [Authorize("AdminPolicy")]
+		public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var movie = await _context.Movie.FindAsync(id);
             _context.Movie.Remove(movie);
