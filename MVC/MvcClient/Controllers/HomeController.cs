@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApp.Models;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Authentication;
+using Newtonsoft.Json.Linq;
 
 namespace WebApp.Controllers
 {
@@ -39,6 +43,12 @@ namespace WebApp.Controllers
 
             ViewBag.Json = JArray.Parse(content).ToString();
             return View("CallApi");
+        }
+
+        [Route("logout")]
+        public IActionResult Logout()
+        {
+            return SignOut("Cookies", "oidc");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
