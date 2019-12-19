@@ -1,14 +1,11 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
 
 using System.Collections.Generic;
 using IdentityServer.Models;
 
-namespace IdentityServer.ViewModels
-{
-    public class ConsentViewModel : ConsentInputModel
-    {
+namespace IdentityServer.ViewModels {
+    public class ConsentViewModel : ConsentInputModel {
         public string ClientName { get; set; }
         public string ClientUrl { get; set; }
         public string ClientLogoUrl { get; set; }
